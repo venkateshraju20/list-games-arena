@@ -25,14 +25,14 @@ class App extends React.Component {
     var sortByPlatform = this.state.listGames.sort((a, b) =>
       a.platform.localeCompare(b.platform)
     );
-    this.setState({ listGames: sortByPlatform.reverse() });
+    this.setState({ listGames: sortByPlatform });
   };
 
   onSortByPlatformDesc = () => {
     var sortByPlatform = this.state.listGames.sort((a, b) =>
       a.platform.localeCompare(b.platform)
     );
-    this.setState({ listGames: sortByPlatform });
+    this.setState({ listGames: sortByPlatform.reverse() });
   };
 
   onSortByScoreToHigh = () => {

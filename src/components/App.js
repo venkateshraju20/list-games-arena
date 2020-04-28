@@ -10,15 +10,22 @@ class App extends React.Component {
   state = {
     searchData: null,
     listGames: [],
+    results: [],
   };
 
   async componentDidMount() {
     const response = await axios.get(FETCH_GAMES_ARENA);
-    this.setState({ listGames: response.data });
+    this.setState({ listGames: response.data, results: response.data });
   }
 
   onSearchSubmit = (term) => {
-    this.setState({ searchData: term });
+    var gameNames = [];
+    this.state.listGames.forEach((game) => {
+      if (String(game.title).toLowerCase().indexOf(term.toLowerCase()) >= 0) {
+        gameNames.push(game);
+      }
+    });
+    this.setState({ searchData: term, results: gameNames });
   };
 
   onSortByPlatformAsc = () => {
@@ -46,11 +53,11 @@ class App extends React.Component {
   };
 
   render() {
-    const { listGames, searchData } = this.state;
+    const { listGames, searchData, results } = this.state;
     return (
       <div className="ui container" style={{ marginTop: "10px" }}>
         <h2 style={{ textAlign: "center" }}>Games Arena</h2>
-        <SearchBar onSubmit={this.onSearchSubmit} />
+        <SearchBar onSubmit={this.onSearchSubmit} searchresults={results} />
 
         {listGames.length === 0 ? (
           <div

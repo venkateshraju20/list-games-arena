@@ -19,7 +19,6 @@ class SearchBar extends React.Component {
     this.setState({ value: result.title });
 
   handleSearchChange = (e, { value }) => {
-    console.log(this.state.value);
     this.setState({ isLoading: true, value });
 
     this.setState({ value: e.target.value });
@@ -41,9 +40,7 @@ class SearchBar extends React.Component {
   onFormSubmit = (e) => {
     e.preventDefault();
     if (e.key === "Enter") {
-      console.log(this.state.value);
-      console.log(e.target.value);
-      this.props.onSubmit(e.target.value);
+      this.props.onSubmit(this.state.value);
     }
   };
 
